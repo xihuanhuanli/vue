@@ -9,16 +9,17 @@ export function login(data) {
 }
 
 export function getInfo(token) {
+  const data = { 'token': token }
   return request({
-    url: '/vue-admin-template/user/info',
-    method: 'get',
-    params: { token }
+    url: 'user/getUserInfo',
+    method: 'post',
+    data
   })
 }
 
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
+    url: 'user/logout',
     method: 'post'
   })
 }
