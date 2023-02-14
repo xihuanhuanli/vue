@@ -1,19 +1,30 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">welcome !! {{ name }}</div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import GLOBAL from '@/api/global_variable'
 
 export default {
+  created() {
+    this.hello()
+  },
   name: 'Dashboard',
   computed: {
     ...mapGetters([
       'name'
     ])
+  },
+  methods:{
+    hello() {
+        if(GLOBAL.userRole.includes('admin')){
+            this.$router.options.routes[5].hidden=false
+          }
   }
+}
 }
 </script>
 

@@ -49,27 +49,57 @@ export const constantRoutes = [
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      name: 'Dashboard',
+      name: '首页',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'home' }
     }]
   },
 
   {
     path: '/film',
     component: Layout,
-    redirect: '/film/filminfo',
+    redirect: '/film/filmInfo',
     children: [{
-      path: 'filminfo',
+      path: 'filmInfo',
       name: '电影列表',
       component: () => import('@/views/film/film'),
       meta: { title: '电影列表', icon: 'film' }
     }]
   },
-
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order/orderInfo',
+    children: [{
+      path: 'orderInfo',
+      name: '历史订单',
+      component: () => import('@/views/order/order'),
+      meta: { title: '历史订单', icon: 'order' }
+    }]
+  },
+  {
+    path: '/administrator',
+    component: Layout,
+    redirect: '/administrator/administrator',
+    hidden: true,
+    name: '后台管理',
+    meta: { title: '后台管理', icon: 'administrator' },
+    children: [
+    {
+      path: 'filmManagement',
+      name: '电影管理',
+      component: () => import('@/views/administrator/filmManagement'),
+      meta: { title: '电影管理', icon: 'filmManagement' }
+    },
+     {
+      path: 'userinfo',
+      name: '用户管理',
+      component: () => import('@/views/administrator/UserAdministrator'),
+      meta: { title: '用户管理', icon: 'userinfo' }
+    }
+  ]
+  }
   
-
-
 ]
 
 const createRouter = () => new Router({

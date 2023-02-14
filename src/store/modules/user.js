@@ -1,6 +1,7 @@
 import { login,logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import GLOBAL from '@/api/global_variable'
 
 const getDefaultState = () => {
   return {
@@ -53,9 +54,12 @@ const actions = {
           return reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar } = data
+        const { username, avatar,role } = data
+          if (role.includes('admin')) {
+            GLOBAL.userRole='admin'
+          }
 
-        commit('SET_NAME', name)
+        commit('SET_NAME', username)
         commit('SET_AVATAR', avatar)
         resolve(data)
       }).catch(error => {
@@ -68,6 +72,7 @@ const actions = {
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
+        GLOBAL.userRole='editor'
         removeToken() // must remove  token  first
         resetRouter()
         commit('RESET_STATE')
