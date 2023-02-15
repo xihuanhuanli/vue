@@ -6,25 +6,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import GLOBAL from '@/api/global_variable'
 
 export default {
-  created() {
-    this.hello()
-  },
   name: 'Dashboard',
   computed: {
     ...mapGetters([
       'name'
     ])
-  },
-  methods:{
-    hello() {
-        if(GLOBAL.userRole.includes('admin')){
-            this.$router.options.routes[5].hidden=false
-          }
   }
-}
 }
 </script>
 

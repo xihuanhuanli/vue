@@ -23,6 +23,7 @@ import { mapGetters } from 'vuex'
 import Logo from './Logo'
 import SidebarItem from './SidebarItem'
 import variables from '@/styles/variables.scss'
+import GLOBAL from '@/api/global_variable'
 
 export default {
   components: { SidebarItem, Logo },
@@ -51,6 +52,16 @@ export default {
     isCollapse() {
       return !this.sidebar.opened
     }
+  },
+  methods:{
+    hello() {
+        if(GLOBAL.userRole.includes('admin')){
+            this.$router.options.routes[5].hidden=false
+          }
+   }
+  },
+  created() {
+    this.hello()
   }
 }
 </script>
