@@ -26,7 +26,7 @@ const users = {
 module.exports = [
   // user login
   {
-    url: '/vue-admin-template/user/login',
+    url: '/user/login',
     type: 'post',
     response: config => {
       const { username } = config.body
@@ -41,7 +41,7 @@ module.exports = [
       }
 
       return {
-        code: 20000,
+        code: 200,
         data: token
       }
     }
@@ -49,34 +49,31 @@ module.exports = [
 
   // get user info
   {
-    url: '/vue-admin-template/user/info\.*',
-    type: 'get',
+    url: '/user/getUserInfo',
+    type: 'post',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
-
-      // mock error
-      if (!info) {
-        return {
-          code: 50008,
-          message: 'Login failed, unable to get user details.'
-        }
-      }
-
+    
       return {
-        code: 20000,
-        data: info
+        code: 200,
+        message:'success',
+        data:{
+          id:1,
+          username:'admin',
+          password : 'admin',
+          avatar:'https://img.zcool.cn/community/01fd76565d10e86ac7253403e23ff2.jpg@1280w_1l_2o_100sh.jpg',
+          role: 'admin'
+        }
       }
     }
   },
 
   // user logout
   {
-    url: '/vue-admin-template/user/logout',
+    url: '/user/logout',
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        code: 200,
         data: 'success'
       }
     }
