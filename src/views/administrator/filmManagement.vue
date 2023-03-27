@@ -1,138 +1,220 @@
 <template>
   <div style="background-color: rgb(240, 240, 240)">
-    <el-drawer :title="titleA" :visible.sync="visible" :direction="direction" :before-close="cancelForm">
+    <el-drawer  style="width: 100%"  :title="titleA" :visible.sync="visible" :direction="direction" :before-close="cancelForm" size="50%">
       <div class="demo-drawer__content">
         <el-form :model="form" ref="form">
+
           <el-form-item
             label="影片名"
             :label-width="formLabelWidth"
-            prop="title"
+            prop="filmName"
             :rules="[
               { required: true, message: '影片名不能为空', trigger: 'blur' },
             ]"
           >
             <el-input
-              v-model="form.title"
+              v-model="form.filmName"
               autocomplete="off"
-              placeholder="请输入片名"
+              placeholder="请输入影片名"
             ></el-input>
           </el-form-item>
           <el-form-item
-            label="链接"
+            label="影片原名"
             :label-width="formLabelWidth"
-            prop="link"
+            prop="initialName"
             :rules="[
-              { required: true, message: '链接不能为空', trigger: 'blur' },
+              { required: true, message: '影片原名不能为空', trigger: 'blur' },
             ]"
           >
             <el-input
-              v-model="form.link"
+              v-model="form.initialName"
               autocomplete="off"
-              placeholder="请输入链接"
+              placeholder="请输入影片原名"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="影片别名"
+            :label-width="formLabelWidth"
+            prop="alias"
+            :rules="[
+              { required: true, message: '影片别名不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.alias"
+              autocomplete="off"
+              placeholder="请输入影片别名"
             ></el-input>
           </el-form-item>
           <el-form-item
             label="评分"
             :label-width="formLabelWidth"
-            prop="rating"
+            prop="score"
             :rules="[
               { required: true, message: '评分不能为空', trigger: 'blur' },
             ]"
           >
             <el-input
-              v-model="form.rating"
+              v-model="form.score"
               autocomplete="off"
               placeholder="请输入评分"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="评论人数"
+            :label-width="formLabelWidth"
+            prop="evaluateNumber"
+            :rules="[
+              { required: true, message: '评论人数不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.evaluateNumber"
+              autocomplete="off"
+              placeholder="请输入评论人数"
             ></el-input>
           </el-form-item>
           <el-form-item label="简评" :label-width="formLabelWidth">
             <el-input
               type="textarea"
-              v-model="form.inq"
+              v-model="form.introduction"
               autocomplete="off"
               placeholder="请输入简评"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="类型"
+            :label-width="formLabelWidth"
+            prop="type"
+            :rules="[
+              { required: true, message: '类型不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.type"
+              autocomplete="off"
+              placeholder="请输入类型"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item
+            label="国家"
+            :label-width="formLabelWidth"
+            prop="country"
+            :rules="[
+              { required: true, message: '国家不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.country"
+              autocomplete="off"
+              placeholder="请输入国家"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="语言"
+            :label-width="formLabelWidth"
+            prop="language"
+            :rules="[
+              { required: true, message: '语言不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.language"
+              autocomplete="off"
+              placeholder="请输入语言"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="发布年份"
+            :label-width="formLabelWidth"
+            prop="releaseYear"
+            :rules="[
+              { required: true, message: '发布年份不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.releaseYear"
+              autocomplete="off"
+              placeholder="请输入发布年份"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="时长"
+            :label-width="formLabelWidth"
+            prop="time"
+            :rules="[
+              { required: true, message: '时长不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.time"
+              autocomplete="off"
+              placeholder="请输入时长"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
+            label="导演主演"
+            :label-width="formLabelWidth"
+            prop="role"
+            :rules="[
+              { required: true, message: '导演主演不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.role"
+              autocomplete="off"
+              placeholder="请输入导演主演"
+            ></el-input>
+          </el-form-item>
+
+          <el-form-item
+            label="详情链接"
+            :label-width="formLabelWidth"
+            prop="detailsSrc"
+            :rules="[
+              { required: true, message: '详情链接不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.detailsSrc"
+              autocomplete="off"
+              placeholder="请输入详情链接"
+            ></el-input>
+          </el-form-item>
+          
+
+          <el-form-item
+            label="图片链接"
+            :label-width="formLabelWidth"
+            prop="imageSrc"
+            :rules="[
+              { required: true, message: '图片链接不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.imageSrc"
+              autocomplete="off"
+              placeholder="请输入图片链接"
             ></el-input>
           </el-form-item>
         </el-form>
         <div class="demo-drawer__footer" style="margin-left: 80px">
           <el-button @click="cancelForm">取 消</el-button>
-          <el-button type="primary" @click="submitForm('form')"
-            >确 定</el-button
-          >
+          <el-button type="primary" @click="submitForm('form')">确 定</el-button>
+          <el-popconfirm
+              title="确定重置吗？"
+              @onConfirm="resetForm"
+            >
+              <template #reference>
+                <el-button type="primary" style="margin-left: 10px">重置 </el-button>
+              </template>
+            </el-popconfirm>
         </div>
       </div>
 
     </el-drawer>
-    <!-- <el-drawer
-      title="请输入新增信息"
-      v-model="dialog"
-      direction="ltr"
-      custom-class="demo-drawer"
-      ref="drawer"
-      @close="resetForm('form')"
-    >
-      <div class="demo-drawer__content">
-        <el-form :model="form" ref="form">
-          <el-form-item
-            label="影片名"
-            :label-width="formLabelWidth"
-            prop="title"
-            :rules="[
-              { required: true, message: '影片名不能为空', trigger: 'blur' },
-            ]"
-          >
-            <el-input
-              v-model="form.title"
-              autocomplete="off"
-              placeholder="请输入片名"
-            ></el-input>
-          </el-form-item>
-          <el-form-item
-            label="链接"
-            :label-width="formLabelWidth"
-            prop="link"
-            :rules="[
-              { required: true, message: '链接不能为空', trigger: 'blur' },
-            ]"
-          >
-            <el-input
-              v-model="form.link"
-              autocomplete="off"
-              placeholder="请输入链接"
-            ></el-input>
-          </el-form-item>
-          <el-form-item
-            label="评分"
-            :label-width="formLabelWidth"
-            prop="rating"
-            :rules="[
-              { required: true, message: '评分不能为空', trigger: 'blur' },
-            ]"
-          >
-            <el-input
-              v-model="form.rating"
-              autocomplete="off"
-              placeholder="请输入评分"
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="简评" :label-width="formLabelWidth">
-            <el-input
-              type="textarea"
-              v-model="form.inq"
-              autocomplete="off"
-              placeholder="请输入简评"
-            ></el-input>
-          </el-form-item>
-        </el-form>
-        <div class="demo-drawer__footer" style="margin-left: 80px">
-          <el-button @click="cancelForm">取 消</el-button>
-          <el-button type="primary" @click="submitForm('form')"
-            >确 定</el-button
-          >
-        </div>
-      </div>
-    </el-drawer> -->
-
+    
     <div style="margin: 10px 0">
         <el-button
           type="primary"
@@ -154,10 +236,21 @@
         style="width: 100%"
         stripe
       >
-        <el-table-column label="影片名" prop="title"></el-table-column>
-        <el-table-column label="链接" prop="link"></el-table-column>
-        <el-table-column label="评分" prop="rating" sortable></el-table-column>
-        <el-table-column label="简评" prop="inq"></el-table-column>
+      <el-table-column label="ID" prop="id" v-if="false"></el-table-column>
+        <el-table-column label="影片名" prop="filmName"></el-table-column>
+        <el-table-column label="原名" prop="initialName" v-if="false"></el-table-column>
+        <el-table-column label="别名" prop="alias" v-if="false"></el-table-column>
+        <el-table-column label="评分" prop="score" sortable></el-table-column>
+        <el-table-column label="评价人数" prop="evaluateNumber" v-if="false"></el-table-column>
+        <el-table-column label="简评" prop="introduction"></el-table-column>
+        <el-table-column label="类型" prop="type"></el-table-column>
+        <el-table-column label="国家" prop="country"></el-table-column>
+        <el-table-column label="语言" prop="language"></el-table-column>
+        <el-table-column label="发布年份" prop="releaseYear"></el-table-column>
+        <el-table-column label="时长" prop="time"></el-table-column>
+        <el-table-column label="导演主演" prop="role" v-if="false"></el-table-column>        
+        <el-table-column label="详情链接" prop="detailsSrc" v-if="false"></el-table-column>
+        <el-table-column label="图片链接" prop="imageSrc" v-if="false"></el-table-column>
         <el-table-column align="right">
           <template #header>
             <el-input
@@ -208,6 +301,7 @@ export default {
       titleA:"请输入新增信息",
       titleADD:"请输入新增信息",
       titleEdit:"请修改信息",
+      style1:'width:40%;',
       direction: 'rtl',
       currentPage: 1,
       total: 0,
@@ -234,17 +328,15 @@ export default {
           },
     load() {
       request
-        .get("http://localhost:9090/film", {
-          params: {
+        .post("http://localhost:8081/film/selectALLPage", {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
             search: this.search,
-          },
         })
         .then((res) => {
           console.log(res);
-          this.tableData = res.data.records;
-          this.total = res.data.total;
+          this.tableData = res.data.content;
+          this.total = res.data.totalSize;
         });
     },
     handleEdit(row) {
@@ -257,8 +349,8 @@ export default {
     },
     handleDelete(id) {
       console.log(1)
-      request.delete("http://localhost:9090/film/" + id).then((res) => {
-        if (res.code === "0") {
+      request.post("http://localhost:8081/film/deleteFilm",{"id":id}).then((res) => {
+        if (res.code === 0) {
           this.$message({
             type: "success",
             message: "删除成功",
@@ -288,16 +380,16 @@ export default {
       this.clean()
       this.visible = false;
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
+    resetForm() {
+      this.form={}
     },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.flag) {
-            request.put("http://localhost:9090/film", this.form).then((res) => {
+            request.post("http://localhost:8081/film/updateFilm", this.form).then((res) => {
               console.log(res);
-              if (res.code === "0") {
+              if (res.code === 0) {
                 this.$message({
                   type: "success",
                   message: "编辑成功",
@@ -313,10 +405,10 @@ export default {
             });
           } else {
             request
-              .post("http://localhost:9090/film", this.form)
+              .post("http://localhost:8081/film/addFilm", this.form)
               .then((res) => {
                 console.log(res);
-                if (res.code === "0") {
+                if (res.code === 0) {
                   this.$message({
                     type: "success",
                     message: "新增成功",
@@ -342,4 +434,7 @@ export default {
 </script>
 
 <style>
+.el-drawer.rtl {
+        overflow: scroll
+    }
 </style>

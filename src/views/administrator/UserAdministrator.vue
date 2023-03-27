@@ -8,7 +8,7 @@
     </el-radio-group>
     <el-button @click='showTable'>显示抽屉表格</el-button>
     
-    <el-drawer title="抽屉表格" :visible.sync="visible" :direction="direction" :before-close="handleClose">
+    <el-drawer title="抽屉表格" :visible.sync="visible" :direction="direction" :before-close="handleClose" size="50%">
         <el-table :data="tableData">
             <el-table-column prop="userName" label="用户名"></el-table-column>
             <el-table-column prop="password" label="密码"></el-table-column>

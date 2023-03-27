@@ -80,7 +80,7 @@ export const constantRoutes = [
   {
     path: '/administrator',
     component: Layout,
-    redirect: '/administrator/administrator',
+    redirect: '/administrator/filmManagement',
     hidden: true,
     name: '后台管理',
     meta: { title: '后台管理', icon: 'administrator' },
