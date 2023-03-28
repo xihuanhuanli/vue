@@ -215,23 +215,22 @@
 
     </el-drawer>
     
-    <div style="margin: 10px 0">
+    <div style="padding-top:15px;">
         <el-button
           type="primary"
+          style="margin-left:20px"
           @click="showTable"
           >新增</el-button
         >
-        <el-button type="primary">导入</el-button>
-        <el-button type="primary">导出</el-button>
+        <!-- <el-button type="primary">导入</el-button>
+        <el-button type="primary">导出</el-button> -->
+        <el-button type="primary" @click="load">查询</el-button>
       </div>
     
     <div style="padding: 15px">
       <el-table
         :data="
-          tableData.filter(
-            (data) =>
-              !search || data.title.toLowerCase().includes(search.toLowerCase())
-          )
+          tableData
         "
         style="width: 100%"
         stripe
@@ -257,6 +256,7 @@
               v-model="search"
               size="mini"
               placeholder="输入影片名搜索"
+              @keyup.enter.native="load"
               clearable
             />
           </template>
@@ -334,7 +334,6 @@ export default {
             search: this.search,
         })
         .then((res) => {
-          console.log(res);
           this.tableData = res.data.content;
           this.total = res.data.totalSize;
         });
@@ -344,8 +343,6 @@ export default {
       this.flag=true;
       this.titleA=this.titleEdit;
       this.visible = true;
-      console.log(row);
-      console.log(this.form);
     },
     handleDelete(id) {
       console.log(1)
@@ -378,6 +375,7 @@ export default {
     },
     cancelForm() {
       this.clean()
+      this.flag=false;
       this.visible = false;
     },
     resetForm() {
@@ -388,7 +386,6 @@ export default {
         if (valid) {
           if (this.flag) {
             request.post("http://localhost:8081/film/updateFilm", this.form).then((res) => {
-              console.log(res);
               if (res.code === 0) {
                 this.$message({
                   type: "success",
@@ -407,7 +404,6 @@ export default {
             request
               .post("http://localhost:8081/film/addFilm", this.form)
               .then((res) => {
-                console.log(res);
                 if (res.code === 0) {
                   this.$message({
                     type: "success",
