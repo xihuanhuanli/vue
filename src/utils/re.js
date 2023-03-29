@@ -3,7 +3,7 @@ import router from '@/router'
 import sessionStorage from "../utils/storage";
 
 const request = axios.create({
-    baseURL: "/api",
+    baseURL: process.env.VUE_APP_BASE_API,
     timeout: 30000
 })
 

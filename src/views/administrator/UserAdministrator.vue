@@ -184,7 +184,7 @@
             },
       load() {
         request
-          .post("http://localhost:8081/user/selectALLPage", {
+          .post("user/selectALLPage", {
               pageNum: this.currentPage,
               pageSize: this.pageSize,
               search: this.search,
@@ -202,7 +202,7 @@
       },
       handleDelete(id) {
         console.log(1)
-        request.post("http://localhost:8081/user/deleteUser",{"id":id}).then((res) => {
+        request.post("user/deleteUser",{"id":id}).then((res) => {
           if (res.code === 0) {
             this.$message({
               type: "success",
@@ -241,7 +241,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             if (this.flag) {
-              request.post("http://localhost:8081/user/updateUser", this.form).then((res) => {
+              request.post("user/updateUser", this.form).then((res) => {
                 if (res.code === 0) {
                   this.$message({
                     type: "success",
@@ -258,7 +258,7 @@
               });
             } else {
               request
-                .post("http://localhost:8081/user/addUser", this.form)
+                .post("user/addUser", this.form)
                 .then((res) => {
                   if (res.code === 0) {
                     this.$message({

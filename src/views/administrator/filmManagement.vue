@@ -328,7 +328,7 @@ export default {
           },
     load() {
       request
-        .post("http://localhost:8081/film/selectALLPage", {
+        .post("film/selectALLPage", {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
             search: this.search,
@@ -346,7 +346,7 @@ export default {
     },
     handleDelete(id) {
       console.log(1)
-      request.post("http://localhost:8081/film/deleteFilm",{"id":id}).then((res) => {
+      request.post("film/deleteFilm",{"id":id}).then((res) => {
         if (res.code === 0) {
           this.$message({
             type: "success",
@@ -385,7 +385,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.flag) {
-            request.post("http://localhost:8081/film/updateFilm", this.form).then((res) => {
+            request.post("film/updateFilm", this.form).then((res) => {
               if (res.code === 0) {
                 this.$message({
                   type: "success",
@@ -402,14 +402,19 @@ export default {
             });
           } else {
             request
-              .post("http://localhost:8081/film/addFilm", this.form)
+              .post("film/addFilm", this.form)
               .then((res) => {
                 if (res.code === 0) {
                   this.$message({
                     type: "success",
                     message: "新增成功",
                   });
-                } else {
+                } else if(res.code === 1){
+                  this.$message({
+                    type: "error",
+                    message: "电影已存在",
+                  });
+                }else {
                   this.$message({
                     type: "error",
                     message: res.msg,
