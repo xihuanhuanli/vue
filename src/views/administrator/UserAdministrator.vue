@@ -265,7 +265,12 @@
                       type: "success",
                       message: "新增成功",
                     });
-                  } else {
+                  } else if(res.code === 1){
+                  this.$message({
+                    type: "error",
+                    message: "用户已存在",
+                  });
+                }else {
                     this.$message({
                       type: "error",
                       message: res.msg,
