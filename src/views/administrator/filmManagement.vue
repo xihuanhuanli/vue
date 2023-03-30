@@ -235,7 +235,7 @@
         style="width: 100%"
         stripe
       >
-      <el-table-column label="ID" prop="id" v-if="false"></el-table-column>
+      <el-table-column label="电影ID" prop="id"></el-table-column>
         <el-table-column label="影片名" prop="filmName"></el-table-column>
         <el-table-column label="原名" prop="initialName" v-if="false"></el-table-column>
         <el-table-column label="别名" prop="alias" v-if="false"></el-table-column>

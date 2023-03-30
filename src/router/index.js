@@ -91,6 +91,12 @@ export const constantRoutes = [
       component: () => import('@/views/administrator/filmManagement'),
       meta: { title: '电影管理', icon: 'filmManagement' }
     },
+    {
+      path: 'filmShow',
+      name: '电影推荐',
+      component: () => import('@/views/administrator/filmShow'),
+      meta: { title: '电影推荐', icon: 'filmManagement' }
+    },
      {
       path: 'userinfo',
       name: '用户管理',
