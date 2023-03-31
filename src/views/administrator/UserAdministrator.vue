@@ -184,7 +184,7 @@
             },
       load() {
         request
-          .post("user/selectALLPage", {
+          .post("user/selectALLPageUser", {
               pageNum: this.currentPage,
               pageSize: this.pageSize,
               search: this.search,

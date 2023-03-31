@@ -328,7 +328,7 @@ export default {
           },
     load() {
       request
-        .post("film/selectALLPage", {
+        .post("film/selectALLPageFilm", {
             pageNum: this.currentPage,
             pageSize: this.pageSize,
             search: this.search,

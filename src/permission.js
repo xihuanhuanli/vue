@@ -26,6 +26,14 @@ router.beforeEach(async(to, from, next) => {
       // if is logged in, redirect to the home page
       next({ path: '/' })
       NProgress.done()
+    }
+    else if(to.path==='/sellticket/sellticketInfo'){
+      const id = store.id
+      if (id) {
+        next()
+      } else {
+       next({path:'/404'})
+      }
     } 
     else if(to.path==='/administrator/filmManagement'||to.path==='/administrator/filmShow'||to.path==='/administrator/userinfo'){
       const hasGetUserInfo = store.getters.name
