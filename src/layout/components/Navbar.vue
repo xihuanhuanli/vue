@@ -48,6 +48,7 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.options.routes[5].hidden=true
+      this.$router.options.routes[6].hidden=true
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }

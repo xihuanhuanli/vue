@@ -71,15 +71,13 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
-
 export default {
   name: 'Login',
   components: {},
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+      if (value.length < 5) {
+        callback(new Error('The username can not be less than 5 digits'))
       } else {
         callback()
       }

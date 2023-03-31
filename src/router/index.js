@@ -78,6 +78,17 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/sellticket',
+    component: Layout,
+    redirect: '/sellticket/sellticketInfo',
+    children: [{
+      path: 'sellticketInfo',
+      name: '电影售票',
+      component: () => import('@/views/sellticket/sellticket'),
+      meta: { title: '电影售票', icon: 'order' }
+    }]
+  },
+  {
     path: '/administrator',
     component: Layout,
     redirect: '/administrator/filmManagement',
@@ -104,7 +115,11 @@ export const constantRoutes = [
       meta: { title: '用户管理', icon: 'userinfo' }
     }
   ]
-  }
+  },
+  {
+    path: '*',
+    redirect: '/404'
+   }
   
 ]
 

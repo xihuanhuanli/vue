@@ -56,8 +56,9 @@ export default {
   methods:{
     hello() {
         if(GLOBAL.userRole.includes('admin')){
-            this.$router.options.routes[5].hidden=false
+            this.$router.options.routes[6].hidden=false
           }
+          this.$router.options.routes[5].hidden=true
    }
   },
   created() {

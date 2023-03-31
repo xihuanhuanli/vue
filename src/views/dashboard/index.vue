@@ -29,6 +29,7 @@
           <img
             style="width: 280px"
             :src="item.image_src"
+            @click="c()"
 
 
 
@@ -46,6 +47,15 @@
 import request from "../../utils/re";
 import { mapGetters } from 'vuex'
 export default {
+  watch: {
+    $route() {
+      console.log(nihao)
+      //监听相同路由下参数变化的时候，从而实现异步刷新
+      this.loading = true;
+      //重新获取数据
+      this. mounted();
+    },
+  },
   name: "Home",
   components: {},
   computed: {
@@ -61,9 +71,12 @@ export default {
     };
   },
   created() {
-    this.load();
+  
   },
   methods: {
+    c(){
+      console.log("ccccccccccccccc")
+    },
     load() {
       request
         .post("film/selectShowFilm")
@@ -86,7 +99,9 @@ export default {
     },
   },
   mounted() {
+    console.log(111111111)
     this.currentTime();
+    this.load();
   },
 
   beforeDestroy() {
