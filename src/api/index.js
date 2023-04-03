@@ -8,13 +8,12 @@ import request from '@/utils/request'
     })
   }
 /**
- * 获取用户历史订单信息
+ * 获取微信登录信息
  */
-export function login1(data) {
+export function wachatQrUrl() {
     return request({
-      url: '/vue-admin-template/user/login',
-      method: 'post',
-      data
+      url: '/user/getUrl',
+      method: 'get',
     })
   }
 /**

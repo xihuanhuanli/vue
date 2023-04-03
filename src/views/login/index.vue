@@ -55,7 +55,7 @@
         @click.native.prevent="handleLogin"
       >登录</el-button>
       <div style="position:relative;float: left ">
-        <div style="float: left;margin-left: 150px">
+        <div style="float: left;margin-left: 150px;cursor: pointer;" @click=" wechatLogin()">
           <svg-icon icon-class="weixin" class="svg-icon-social" />
         </div>
         <div style="float: left;margin-left: 30px">
@@ -122,6 +122,10 @@ export default {
       this.$nextTick(() => {
         this.$refs.password.focus()
       })
+    },
+    wechatLogin(){
+      console.log("wechatLogin")
+      this.$router.push({ path: '/wechatLogin'})
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
