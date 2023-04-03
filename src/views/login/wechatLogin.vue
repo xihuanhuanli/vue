@@ -1,19 +1,12 @@
 <template>
     <div class="wxLogin">
       <span class="title">微信扫一扫登录</span>
-      <div class="main_wx">
-        <wxlogin
-          v-if="appid && redirect_uri"
-          :appid="appid"
-          scope="snsapi_login"
-          :redirect_uri="redirect_uri"
-          :href="href"
-          :state="state"
-        ></wxlogin>
-      </div>
+      <img src="../../icons/img/test.png">
       <p>
-        请使用微信扫描二维码登录
+        请先使用微信扫描二维码关注公众号
       </p>
+      <input v-model="code">
+      <el-button  @click="myclose()">Back to home</el-button>
     </div>
   </template>
   
@@ -28,13 +21,13 @@
         appid: '',
         redirect_uri: '',
         state: '1',
-        href: '' // 自定义样式链接
+        href: '', // 自定义样式链接
+        code:'xiexie'
       }
     },
     mounted () {
       this.getWeChatUrl()
-      console.log(this.appid)
-      console.log(this.redirect_uri)
+      this.parm()
     },
     methods: {
       // 获取微信appid和回调地址redirect_uri，指定内嵌的路由地址weChatLogin
@@ -42,13 +35,19 @@
         wachatQrUrl().then(res => {
           if (res && res.code === 200) {
             const data = res.data
-            console.log(data)
             this.appid = data.appid
             this.redirect_uri = data.redirect_uri + 'weChatLogin'
-            console.log(this.appid)
-            console.log(this.redirect_uri)
           }
         })
+      },
+      parm(){
+        var tem=this.$route.query.code;
+        if(tem.length>0){
+            this.code=tem
+        }
+      },
+      myclose(){
+        this.code="nihao"
       }
     }
   }
