@@ -124,7 +124,6 @@ export default {
       })
     },
     wechatLogin(){
-      console.log("wechatLogin")
       this.$router.push({ path: '/wechatLogin'})
     },
     handleLogin() {

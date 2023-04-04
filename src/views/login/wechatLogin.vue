@@ -5,50 +5,67 @@
       <p>
         请先使用微信扫描二维码关注公众号
       </p>
-      <input v-model="code">
-      <el-button  @click="myclose()">Back to home</el-button>
+      <img id="id" src="../../icons/img/login.png" height="200" width="200" style="visibility:hidden" >
+      <el-button  @click="myclose()">点击打开登录二维码</el-button>
     </div>
   </template>
   
   <script>
-  import wxlogin from 'vue-wxlogin'
-  import {wachatQrUrl} from '@/api/index'
+   import request from "../../utils/re";
   export default {
     name: 'wxLogin',
-    components: { wxlogin },
+    components: { },
     data () {
       return {
-        appid: '',
-        redirect_uri: '',
-        state: '1',
-        href: '', // 自定义样式链接
-        code:'xiexie'
+        i:0
       }
     },
     mounted () {
-      this.getWeChatUrl()
-      this.parm()
     },
     methods: {
-      // 获取微信appid和回调地址redirect_uri，指定内嵌的路由地址weChatLogin
-      getWeChatUrl () {
-        wachatQrUrl().then(res => {
-          if (res && res.code === 200) {
-            const data = res.data
-            this.appid = data.appid
-            this.redirect_uri = data.redirect_uri + 'weChatLogin'
-          }
-        })
-      },
-      parm(){
-        var tem=this.$route.query.code;
-        if(tem.length>0){
-            this.code=tem
-        }
-      },
       myclose(){
-        this.code="nihao"
+        this.i=0
+        var imgId = document.getElementById("id"); 
+        imgId.style.visibility ="visible";
+        this.wechatLogin()
+      },
+      myref(){
+        var imgId = document.getElementById("id"); 
+        imgId.style.visibility ="hidden";
+        this.$message({
+              type: "error",
+              message:"二维码过期",
+            });
+      },
+      checkLogin(){
+        var i=1
+      console.log(this.i)
+    	request.post("/wechat/polling?sessionId=123")
+      .then((res) => {//最多轮询10次，间隔3秒一次，总时长半分钟
+        if(this.i<9){
+        this.i=this.i+i
+        const {code, data } = res
+        if(code=="200"){
+          clearInterval(timer)
+          this.$store.dispatch('user/wechatlogin',data)
+          this.$router.push({ path:'/'})
+        }
+      }else{
+        clearInterval(timer)
+        this.myref()
       }
+          })
+      .catch(error => {
+        reject(error)
+      })
+    	},
+      wechatLogin(){
+        window.timer = setInterval(() => {
+          setTimeout(this.checkLogin(), 0)
+        }, 3000)//轮询查询 
+     }
     }
   }
   </script>
+  <style>
+  </style>

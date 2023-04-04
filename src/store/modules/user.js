@@ -43,6 +43,14 @@ const actions = {
       })
     })
   },
+  //wechat login
+  wechatlogin({ commit },data) {
+    return new Promise((resolve, reject) => {
+          commit('SET_TOKEN', data.token)
+          setToken(data.token)
+          resolve()
+    })
+  },
 
   // get user info
   getInfo({ commit, state }) {
