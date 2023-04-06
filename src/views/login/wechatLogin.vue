@@ -5,7 +5,7 @@
       <p>
         请先使用微信扫描二维码关注公众号
       </p>
-      <img id="id" src="../../icons/img/login.png" height="200" width="200" style="visibility:hidden" >
+      <img id="id" src="../../icons/img/2.png" height="200" width="200" style="visibility:hidden" >
       <el-button  @click="myclose()">点击打开登录二维码</el-button>
     </div>
   </template>
@@ -41,8 +41,8 @@
         var i=1
       console.log(this.i)
     	request.post("/wechat/polling?sessionId=123")
-      .then((res) => {//最多轮询10次，间隔3秒一次，总时长半分钟
-        if(this.i<9){
+      .then((res) => {//最多轮询20次，间隔3秒一次，总时长1分钟
+        if(this.i<19){
         this.i=this.i+i
         const {code, data } = res
         if(code=="200"){

@@ -18,6 +18,7 @@
                 v-model="form.username"
                 autocomplete="off"
                 placeholder="请输入用户名"
+                :readonly="readUserOnly"
               ></el-input>
             </el-form-item>
             <el-form-item
@@ -32,6 +33,7 @@
                 v-model="form.password"
                 autocomplete="off"
                 placeholder="请输入密码"
+                :readonly="readUserOnly"
               ></el-input>
             </el-form-item>
             
@@ -48,6 +50,7 @@
                 v-model="form.avatar"
                 autocomplete="off"
                 placeholder="请输入头像链接"
+                :readonly="readUserOnly"
               ></el-input>
             </el-form-item>
             <el-form-item
@@ -58,7 +61,7 @@
               { required: true, message: '用户角色不能为空', trigger: 'change' },
             ]"
           >
-            <el-select v-model="form.role" placeholder="请选择用户角色">
+            <el-select v-model="form.role" placeholder="请选择用户角色" :disabled="readUserOnly">
               <el-option label="超级管理员" value="admin"></el-option>
               <el-option label="普通用户" value="editor"></el-option>
             </el-select>
@@ -66,13 +69,13 @@
           </el-form>
           <div class="demo-drawer__footer" style="margin-left: 80px">
             <el-button @click="cancelForm">取 消</el-button>
-            <el-button type="primary" @click="submitForm('form')">确 定</el-button>
+            <el-button type="primary" @click="submitForm('form')" :style="{ display: butnotshow?'none':'' }" >确 定</el-button>
             <el-popconfirm
                 title="确定重置吗？"
                 @onConfirm="resetForm"
               >
                 <template #reference>
-                  <el-button type="primary" style="margin-left: 10px">重置 </el-button>
+                  <el-button type="primary" style="margin-left: 10px" :style="{ display: butnotshow?'none':'' }">重置 </el-button>
                 </template>
               </el-popconfirm>
           </div>
@@ -101,6 +104,7 @@
           stripe
         >
         <el-table-column label="ID" prop="id" v-if="false"></el-table-column>
+        <el-table-column label="微信id" prop="wechatid" v-if="false" ></el-table-column>
           <el-table-column label="用户名" prop="username"></el-table-column>
           <el-table-column label="密码" prop="password" ></el-table-column>
           <el-table-column label="角色">
@@ -121,7 +125,7 @@
               />
             </template>
             <template #default="scope">
-              <el-button size="mini" @click="handleEdit(scope.row)"
+              <el-button  size="mini" @click="handleEdit(scope.row)"
                 >编辑
               </el-button>
               <el-popconfirm
@@ -129,7 +133,7 @@
                 @onConfirm="handleDelete(scope.row.id)"
               >
                 <template #reference>
-                  <el-button size="mini" type="danger">删除 </el-button>
+                  <el-button size="mini" type="danger" :style="{ display: scope.row.wechatid!=null?'none':'' }">删除 </el-button>
                 </template>
               </el-popconfirm>
             </template>
@@ -163,6 +167,8 @@
         titleEdit:"请修改信息",
         style1:'width:40%;',
         direction: 'rtl',
+        readUserOnly:false,
+        butnotshow:false,
         currentPage: 1,
         total: 0,
         tableData: [],
@@ -199,6 +205,10 @@
         this.flag=true;
         this.titleA=this.titleEdit;
         this.visible = true;
+        if(row.wechatid){
+          this.readUserOnly=true
+          this.butnotshow=true
+        }
       },
       handleDelete(id) {
         console.log(1)
@@ -231,6 +241,8 @@
       },
       cancelForm() {
         this.clean()
+        this.readUserOnly=false;
+        this.butnotshow=false;
         this.flag=false;
         this.visible = false;
       },
