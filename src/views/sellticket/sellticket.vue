@@ -68,6 +68,13 @@
               <el-row>
                 <el-col :span="24">
                   <div class="grid-content bg-purple-dark">
+                    简评：{{ shopList.introduction }}
+                  </div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="24">
+                  <div class="grid-content bg-purple-dark">
                     <div class="grid-content bg-purple-dark">
                     评分：{{ shopList.score }}
                     </div>
@@ -120,6 +127,7 @@
                 <el-date-picker
                   type="date"
                   placeholder="选择日期"
+                  :picker-options="pickerOptions"
                   v-model="ruleForm.date1"
                   style="width: 100%"
                 ></el-date-picker>
@@ -130,9 +138,7 @@
               <el-form-item prop="date2">
                 <el-time-select
                   v-model="ruleForm.date2"
-                  start="09:30"
-                  step="00:40"
-                  end="22:50"
+                  :picker-options="{start: '11:00',step: '02:30',end: '23:50'}"
                   placeholder="选择时间"
                   style="width: 100%"
                 >
@@ -211,6 +217,11 @@ import store from "@/store";
           ],
           room: [{ required: true, message: "请选择影厅", trigger: "change" }],
         },
+        pickerOptions: { // 限制收货时间不让选择今天以前的
+　　        disabledDate(time) {
+　　　　          return time.getTime()> Date.now()+6*24 * 60 * 60 * 1000||time.getTime()<Date.now()-24 * 60 * 60 * 1000
+　　          }
+          }
       };
     },
     created() {
