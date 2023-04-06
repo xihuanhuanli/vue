@@ -335,6 +335,10 @@ export default {
         })
         .then((res) => {
           this.tableData = res.data.content;
+          this.tableData.forEach((td)=>{
+            var s=td.imageSrc
+            td.imageSrc=s.substring(30)
+          })
           this.total = res.data.totalSize;
         });
     },
