@@ -154,6 +154,20 @@
             ></el-input>
           </el-form-item>
           <el-form-item
+            label="票价"
+            :label-width="formLabelWidth"
+            prop="price"
+            :rules="[
+              { required: true, message: '票价不能为空', trigger: 'blur' },
+            ]"
+          >
+            <el-input
+              v-model="form.price"
+              autocomplete="off"
+              placeholder="请输入票价"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
             label="导演主演"
             :label-width="formLabelWidth"
             prop="role"
@@ -247,6 +261,7 @@
         <el-table-column label="语言" prop="language"></el-table-column>
         <el-table-column label="发布年份" prop="releaseYear"></el-table-column>
         <el-table-column label="时长" prop="time"></el-table-column>
+        <el-table-column label="票价" prop="price"></el-table-column>
         <el-table-column label="导演主演" prop="role" v-if="false"></el-table-column>        
         <el-table-column label="详情链接" prop="detailsSrc" v-if="false"></el-table-column>
         <el-table-column label="图片链接" prop="imageSrc" v-if="false"></el-table-column>

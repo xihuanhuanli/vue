@@ -125,6 +125,18 @@ export const constantRoutes = [
     component:() => import('@/views/login/wechatLogin'),
     hidden:true
   },
+  {
+    path:"/selectseat",
+    component:Layout,
+    redirect: '/selectseat/selectseatInfo',
+    hidden:true,
+    children: [{
+      path: 'selectseatInfo',
+      name: '电影选座',
+      component: () => import('@/views/selectseat/selectseat'),
+      meta: { title: '电影选座', icon: 'order' }
+    }]
+  }
   
 ]
 

@@ -125,7 +125,7 @@
             <el-col :span="11">
               <el-form-item prop="date1">
                 <el-date-picker
-                  type="date"
+                value-format=yyyy-MM-dd
                   placeholder="选择日期"
                   :picker-options="pickerOptions"
                   v-model="ruleForm.date1"
@@ -162,15 +162,9 @@
             </el-radio-group>
           </el-form-item>
   
-          <el-form-item label="服务" prop="service">
-            <el-switch
-              v-model="ruleForm.service"
-              active-text="可改签/可退票"
-            ></el-switch>
-          </el-form-item>
   
           <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm',shopList)"
+            <el-button type="primary" @click="submitForm('ruleForm',ruleForm)"
               >前往购买</el-button
             >
             <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -182,7 +176,6 @@
   
   <script>
 import request from "../../utils/re";
-import store from "@/store";
   
   export default {
     name: "Shop",
@@ -195,14 +188,12 @@ import store from "@/store";
           cinema: "",
           date1: "",
           date2: "",
-          service: false,
           room: "",
         },
         rules: {
           cinema: [{ required: true, message: "请选择影院", trigger: "change" }],
           date1: [
             {
-              type: "date",
               required: true,
               message: "请选择日期",
               trigger: "change",
@@ -229,12 +220,12 @@ import store from "@/store";
       this.load();
     },
     destroyed(){
-      store.id=null
+      sessionStorage.id=false
     },
   
     methods: {
       getParams(){
-        this.id  = store.id;
+        this.id  = sessionStorage.id;
 			},
       load() {
         request
@@ -246,18 +237,28 @@ import store from "@/store";
           });
       },
   
-      submitForm(formName,shopList) {
+      submitForm(formName,ruleForm) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$router.push({
-              name:'Xseats',
-              params:{
-               title:shopList.title,
-               cinema:this.ruleForm.cinema,
-               room:this.ruleForm.room,
-               time:this.ruleForm.date2,
+            var mytime
+            mytime=ruleForm.date1+'T'+ruleForm.date2+':00'
+            request.post("/filmscene/selectFilmScene",{
+              film_id:this.id,
+              cinema:ruleForm.cinema,
+              cinema_type:ruleForm.room,
+              date:ruleForm.date1,
+              begin_time:mytime
+            })
+            .then((res)=>{
+              if(res.code==0){
+                sessionStorage.fsid=res.data.film_scene_id
+                console.log(sessionStorage.getItem('store'))
+                this.$router.push({
+              path:"/selectseat"
+            })
               }
             })
+            
     
           } else {
             console.log("error submit!!");

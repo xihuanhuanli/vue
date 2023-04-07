@@ -28,8 +28,8 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     }
     else if(to.path==='/sellticket/sellticketInfo'){
-      const id = store.id
-      if (id) {
+      const id = sessionStorage.id
+      if (id!='false') {
         next()
       } else {
        next({path:'/404'})

@@ -63,11 +63,11 @@ export default {
     };
   },
   created() {
-  
+    console.log(store)
   },
   methods: {
     shop(film){
-      store.id=film.id
+      sessionStorage.id=film.id
       this.$router.push(
         {path:"/sellticket"})
     },

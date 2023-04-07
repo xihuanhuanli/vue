@@ -83,7 +83,7 @@ export default {
        this.mainIndex =-1
     },
     shop(film){
-      store.id=film.id
+      sessionStorage.id=film.id
       this.$router.push(
         {path:"/sellticket"})
     },
