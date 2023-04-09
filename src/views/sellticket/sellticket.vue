@@ -252,7 +252,6 @@ import request from "../../utils/re";
             .then((res)=>{
               if(res.code==0){
                 sessionStorage.fsid=res.data.film_scene_id
-                console.log(sessionStorage.getItem('store'))
                 this.$router.push({
               path:"/selectseat"
             })

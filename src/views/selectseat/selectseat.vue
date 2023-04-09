@@ -32,29 +32,37 @@
 				<div class="win-right">
 					<div class="row">
 						<div>
-							<img class="film-img" :src="filmSession.filmImg" alt="">
+							<img class="film-img" :src="filmSession.image_src" alt="">
 						</div>
 						<div>
-							<div class="row film-title">{{filmSession.filmName}}</div>
-							<div class="row">类型：{{filmSession.filmType}}</div>
-							<div class="row">时长：120分钟</div>
+							<div class="row film-title">{{filmSession.film_name}}</div>
+							<div class="row">类型：{{filmSession.type}}</div>
+							<div class="row">时长：{{filmSession.time}}</div>
 						</div>
 					</div>
 					<div class="row">
 						<span>影院：</span>
-						<span>{{filmSession.svname}}</span>
+						<span>{{filmSession.cinema}}</span>
 					</div>
 					<div class="row">
 						<span>影厅：</span>
-						<span>{{filmSession.svaddress}}</span>
+						<span>{{filmSession.cinema_type}}</span>
+					</div>
+					<div class="row">
+						<span>电影开场时间：</span>
+						<span>{{filmSession.begin_time}}</span>
 					</div>
 					<div class="row">
 						<span>当前时间：</span>
-						<span>{{filmSession.fstartTime|time}}</span>
+						<span>{{fstartTime|time}}</span>
 					</div>
 					<div class="row">
 						<span>票价：</span>
-						<span>￥{{filmSession.filmPrice|price}}</span>
+						<span>￥{{filmSession.price}}</span>
+					</div>
+					<div class="row">
+						<span>票量：</span>
+						<span>余票：{{filmSession.seat_number}}张，已售：{{100-filmSession.seat_number}}张</span>
 					</div>
 					<div class="row">
 						<div>座位：</div>
@@ -66,7 +74,7 @@
 					</div>
 					<div class="row">
 						<span>总价：</span>
-						<span style="font-size: 25px;color: red;font-weight: 900;">￥{{filmSession.filmPrice*msg.length|price}}</span>
+						<span style="font-size: 25px;color: red;font-weight: 900;">￥{{filmSession.price*msg.length|price}}</span>
 					</div>
 					<div class="row">
 						<button type="button" class="btn" @click="sub">确认选座</button>
@@ -84,18 +92,9 @@ export default {
     data() {
       return {
                     id:null,
+					fstartTime: new Date(),
 					// 场次信息
 					filmSession: {
-						//放映点名称
-						svname: "花语影院",
-						//放映点地址
-						svaddress: "5号放映厅",
-						//开始时间
-						fstartTime: new Date(),
-						filmName: "社会",
-						filmType: "黑道",
-						filmImg: "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p480747492.jpg",
-						filmPrice: 33.50
 					},
 					// 座位状态数组
 					list: [
@@ -110,6 +109,7 @@ export default {
 						[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 						[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 					],
+					seat:[],
 					// 已选座位数
 					msgCount: 0,
 					// 选座信息
@@ -120,19 +120,25 @@ export default {
         this.getParams()  
         console.log(sessionStorage.fsid)
         this.load()
+		console.log(this.$store.getters.id)
     },
     destroyed(){
         sessionStorage.fsid=false
     },
     methods: {
         load(){
-        // request
-        //   .post("film/selectFilmByfilmID", {
-        //     id:this.id
-        //   })
-        //   .then((res) => {
-        //     this.filmSession = res.data;
-        //   });
+        request
+          .post("filmscene/getFilmInfoByFSID", {
+            film_scene_id:this.id
+          })
+          .then((res) => {
+            this.filmSession = res.data;
+			this.seat=res.data.seat;
+			console.log(this.filmSession)
+			this.seat.forEach((td)=>{
+				this.list[td.x-1][td.y-1] = 2
+			})
+          });
         },
         getParams(){
                 this.id  = sessionStorage.fsid;
@@ -169,9 +175,19 @@ export default {
             for (var i = 0; i < this.msg.length; i++) {
                 x = this.msg[i][0];
                 y = this.msg[i][1];
-                this.$set(this.list, 'x,y', 2);
-                this.list[x][y] = 2;
+				console.log(x,y)
             }
+		request
+          .post("filmscene/getFilmInfoByFSID", {
+            film_scene_id:this.id,
+			user_id:this.$store.getters.id,
+			amount:this.msgCount*this.filmSession.price,
+			orderdate:this.fstartTime,
+			seat_number:this.filmSession.seat_number,
+			msg:this.msg
+          })
+          .then((res) => {
+          });
         }
 	},
     // 过滤器
@@ -183,11 +199,12 @@ export default {
         // 日期过滤器
         time(data) {
             var date = new Date(data);
+			var year=data.getFullYear();
             var month = date.getMonth() + 1;
             var day = date.getDate();
             var hours = date.getHours() > 9 ? date.getHours() : ("0" + date.getHours());
             var minutes = date.getMinutes() > 9 ? date.getMinutes() : ("0" + date.getMinutes());
-            return month + "月" + day + "日  " + hours + ":" + minutes;
+            return year+"年"+month + "月" + day + "日  " + hours + ":" + minutes;
         },
         // 价格过滤器,数字保留两位小数
         price(data) {
