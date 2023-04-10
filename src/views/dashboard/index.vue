@@ -45,7 +45,6 @@
 
 <script>
 import request from "../../utils/re";
-import store from "@/store";
 import { mapGetters } from 'vuex'
 export default {
   name: "Home",
@@ -63,7 +62,6 @@ export default {
     };
   },
   created() {
-    console.log(store)
   },
   methods: {
     shop(film){

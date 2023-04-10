@@ -145,7 +145,7 @@ export default {
 			this.seat=res.data.seat;
 			if(this.seat!=null){
 				this.seat.forEach((td)=>{
-				this.list[td.x-1][td.y-1] = 2
+				this.list[parseInt(td.x)][parseInt(td.y)] = 2
 			})
 			}
 			
