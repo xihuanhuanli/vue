@@ -177,12 +177,17 @@
               </el-row>
               <el-row>
                 <el-col :span="24">
-                  <div class="grid-content bg-purple-dark">已购座位：{{scope.row.seatInfo}}</div>
+                  <div class="grid-content bg-purple-dark" >已购座位：{{scope.row.seatInfo}}</div>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="24">
                   <div class="grid-content bg-purple-dark">实付金额：{{scope.row.amount}}元</div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="24">
+                  <div class="grid-content bg-purple-dark">下单时间：{{scope.row.orderDate}}</div>
                 </el-col>
               </el-row>
             </el-main>
