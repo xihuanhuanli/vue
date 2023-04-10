@@ -18,7 +18,6 @@
               ></el-input>
             </el-form-item>
 
-          </el-form-item>
           </el-form>
           <div class="demo-drawer__footer" style="margin-left: 80px">
             <el-button @click="cancelForm">取 消</el-button>

@@ -1,5 +1,15 @@
 <template>
     <div id="app1">
+		<el-drawer  style="width: 100%"  title="请完成支付" :visible.sync="visible" direction='rtl' :before-close="cancelForm" size="30%">
+        <div class="demo-drawer__content">
+		<img id="id" src="../../icons/img/2.png" height="400" width="400" style="visibility:visible" >
+          <div class="demo-drawer__footer" style="margin-left: 80px">
+            <el-button @click="cancelForm">取 消</el-button>
+            <el-button type="primary" @click="subsuccess()">确 定</el-button>
+          </div>
+        </div>
+  
+      </el-drawer>
 			<div class="box">
 				<div id="room">
 					<div class="row" style="margin-left:25%;">
@@ -58,7 +68,7 @@
 					</div>
 					<div class="row">
 						<span>票价：</span>
-						<span>￥{{filmSession.price}}</span>
+						<span>￥{{filmSession.price}}/张</span>
 					</div>
 					<div class="row">
 						<span>票量：</span>
@@ -77,7 +87,7 @@
 						<span style="font-size: 25px;color: red;font-weight: 900;">￥{{filmSession.price*msg.length|price}}</span>
 					</div>
 					<div class="row">
-						<button type="button" class="btn" @click="sub">确认选座</button>
+						<el-button type="button" class="btn" :disabled="msgCount==0" @click="sub">确认选座</el-button>
 					</div>
 				</div>
 			</div>
@@ -91,6 +101,7 @@ import request from "../../utils/re";
 export default {
     data() {
       return {
+					visible: false,
                     id:null,
 					fstartTime: new Date(),
 					// 场次信息
@@ -117,10 +128,8 @@ export default {
 				}
     },
     created(){
-        this.getParams()  
-        console.log(sessionStorage.fsid)
+        this.getParams() 
         this.load()
-		console.log(this.$store.getters.id)
     },
     destroyed(){
         sessionStorage.fsid=false
@@ -134,12 +143,17 @@ export default {
           .then((res) => {
             this.filmSession = res.data;
 			this.seat=res.data.seat;
-			console.log(this.filmSession)
-			this.seat.forEach((td)=>{
+			if(this.seat!=null){
+				this.seat.forEach((td)=>{
 				this.list[td.x-1][td.y-1] = 2
 			})
+			}
+			
           });
         },
+		cancelForm() {
+        this.visible = false;
+      },
         getParams(){
                 this.id  = sessionStorage.fsid;
         },
@@ -169,24 +183,28 @@ export default {
             }
         }
         },
+		sub(){
+			this.visible=true
+		},
         // 确认选座时触发
-        sub() {
-            var x, y;
-            for (var i = 0; i < this.msg.length; i++) {
-                x = this.msg[i][0];
-                y = this.msg[i][1];
-				console.log(x,y)
-            }
+        subsuccess() {
 		request
-          .post("filmscene/getFilmInfoByFSID", {
+          .post("filmscene/setOrder", {
             film_scene_id:this.id,
 			user_id:this.$store.getters.id,
 			amount:this.msgCount*this.filmSession.price,
 			orderdate:this.fstartTime,
-			seat_number:this.filmSession.seat_number,
+			seat_number:this.filmSession.seat_number-this.msgCount,
 			msg:this.msg
           })
           .then((res) => {
+			if(res.code==0){
+				this.$message({
+                      type: "success",
+                      message: "支付成功，即将跳转首页",
+                    });				
+				this.$router.push({path:"/"})
+			}
           });
         }
 	},
@@ -285,7 +303,7 @@ export default {
 				width: 200px;
 				height: 50px;
 				/* padding: 4px 10px 4px 10px; */
-				background-color: rgba(255, 0, 0, 0.8);
+				background-color: rgba(225, 208, 27, 0.2);
 				font-size: 25px;
 				color: white;
 				font-family: '微软雅黑';
