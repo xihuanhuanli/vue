@@ -114,6 +114,17 @@
             ></el-input>
           </el-form-item>
           <el-form-item
+            label="电影时长"
+            :label-width="formLabelWidth"
+            prop="time"
+          >
+            <el-input
+              v-model="form.time"
+              autocomplete="off"
+              :readonly="true"
+            ></el-input>
+          </el-form-item>
+          <el-form-item
             label="图片"
             :label-width="formLabelWidth"
             prop="imageSrc"
