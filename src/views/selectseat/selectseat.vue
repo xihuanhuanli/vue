@@ -2,7 +2,7 @@
     <div id="app1">
 		<el-drawer  style="width: 100%"  title="请完成支付" :visible.sync="visible" direction='rtl' :before-close="cancelForm" size="30%">
         <div class="demo-drawer__content">
-		<img id="id" src="../../icons/img/2.png" height="400" width="400" style="visibility:visible" >
+		<img id="id" src="../../icons/img/pay.png" height="400" width="400" style="visibility:visible" >
           <div class="demo-drawer__footer" style="margin-left: 80px">
             <el-button @click="cancelForm">取 消</el-button>
             <el-button type="primary" @click="subsuccess()">确 定</el-button>

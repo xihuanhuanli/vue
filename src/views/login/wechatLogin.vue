@@ -22,7 +22,7 @@
     box-shadow: 0 0 0 10px white;"> 请先使用微信扫描二维码关注公众号</span>
       </div>
       <div style="margin-left:597px;margin-top: 20px;margin-bottom: 20px;">
-        <img  id="id" src="../../icons/img/2.png" height="150" width="150" style="border:1px solid #000;visibility:hidden" >
+        <img  id="id" src="../../icons/img/login.png" height="150" width="150" style="border:1px solid #000;visibility:hidden" >
       </div>
       <div style="margin-left:590px;margin-top: 10px;margin-bottom: 10px;">
         <el-button  id="btn" @click="myclose()" v-if="flag">点击打开登录二维码</el-button>
