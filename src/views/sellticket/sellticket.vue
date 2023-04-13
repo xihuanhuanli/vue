@@ -18,6 +18,11 @@
               </el-row>
               <el-row>
                 <el-col :span="24">
+                  <div class="grid-content bg-purple-dark">原名：{{ shopList.initialName}}</div>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="24">
                   <div class="grid-content bg-purple-dark">
                     导演/主演：{{ shopList.role }}
                   </div>

@@ -182,7 +182,7 @@
             ></el-input>
           </el-form-item>
 
-          <el-form-item
+          <!-- <el-form-item
             label="详情链接"
             :label-width="formLabelWidth"
             prop="detailsSrc"
@@ -195,7 +195,7 @@
               autocomplete="off"
               placeholder="请输入详情链接"
             ></el-input>
-          </el-form-item>
+          </el-form-item> -->
           
 
           <el-form-item
@@ -350,10 +350,10 @@ export default {
         })
         .then((res) => {
           this.tableData = res.data.content;
-          this.tableData.forEach((td)=>{
-            var s=td.imageSrc
-            td.imageSrc=s.substring(30)
-          })
+          // this.tableData.forEach((td)=>{
+          //   var s=td.imageSrc
+          //   td.imageSrc=s.substring(30)
+          // })
           this.total = res.data.totalSize;
         });
     },
