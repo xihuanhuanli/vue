@@ -165,6 +165,7 @@
               v-model="form.price"
               autocomplete="off"
               placeholder="请输入票价"
+              oninput="value=value.replace(/^\.+|[^\d.]/g,'')"
             ></el-input>
           </el-form-item>
           <el-form-item
@@ -433,6 +434,11 @@ export default {
                     type: "error",
                     message: "电影已存在",
                   });
+                } else if(res.code === 2){
+                  this.$message({
+                    type: "error",
+                    message: "电影价格溢出",
+                  });  
                 }else {
                   this.$message({
                     type: "error",
