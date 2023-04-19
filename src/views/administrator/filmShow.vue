@@ -15,6 +15,7 @@
                 v-model="form.show_film_id"
                 autocomplete="off"
                 placeholder="请输入电影id"
+                oninput="value=value.replace(/^\+|[^\d]/g,'')"
               ></el-input>
             </el-form-item>
 

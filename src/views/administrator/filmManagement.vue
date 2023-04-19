@@ -240,6 +240,15 @@
         <!-- <el-button type="primary">导入</el-button>
         <el-button type="primary">导出</el-button> -->
         <el-button type="primary" @click="load">查询</el-button>
+        <div style="margin-bottom:5px;width:40%;margin-left: 30%;margin-top: 5px;margin-right: 30%;">
+        <el-input
+              v-model="search"
+              size="mini"
+              placeholder="输入影片名搜索,回车查询"
+              @keyup.enter.native="load"
+              clearable
+            />
+          </div>
       </div>
     
     <div style="padding: 15px">
@@ -268,13 +277,7 @@
         <el-table-column label="图片链接" prop="imageSrc" v-if="false"></el-table-column>
         <el-table-column align="right">
           <template #header>
-            <el-input
-              v-model="search"
-              size="mini"
-              placeholder="输入影片名搜索"
-              @keyup.enter.native="load"
-              clearable
-            />
+            
           </template>
           <template #default="scope">
             <el-button size="mini" @click="handleEdit(scope.row)"
