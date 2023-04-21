@@ -414,6 +414,16 @@ export default {
                   type: "success",
                   message: "编辑成功",
                 });
+              } else if(res.code === 1){
+                  this.$message({
+                    type: "error",
+                    message: "电影名已存在",
+                  });
+                } else if(res.code === 2){
+                  this.$message({
+                    type: "error",
+                    message: "电影价格溢出",
+                  });  
               } else {
                 this.$message({
                   type: "error",
